@@ -15,9 +15,9 @@
         },
         {
             "type": "java",
-            "name": "Launch Core",
+            "name": "Launch Program",
             "request": "launch",
-            "mainClass": "com.alice.mel.Core",
+            "mainClass": "com.alice.mel.Program",
             "projectName": "mel"
         }
 

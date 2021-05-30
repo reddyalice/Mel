@@ -1,15 +1,18 @@
 package com.alice.mel.graphics;
 
+import com.alice.mel.core.Engine;
+import com.alice.mel.core.Family;
+import com.alice.mel.entities.Entity;
 
-public abstract class Material implements Comparable<Material>{
+public abstract class Material{
 
-    public final Texture texture;
 	public final Shader shader;
-	
 
-    public Material(Texture texture, Shader shader)
+
+    public abstract void Load(Entity entity);
+	
+    public Material(Shader shader)
     {
-        this.texture = texture;
         this.shader = shader;
     }
 

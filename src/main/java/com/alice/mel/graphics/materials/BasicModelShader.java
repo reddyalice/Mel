@@ -1,6 +1,6 @@
 package com.alice.mel.graphics.materials;
 
-import com.alice.mel.entities.Light;
+import com.alice.mel.components.Light;
 import com.alice.mel.graphics.Shader;
 
 import org.joml.Matrix4f;
@@ -61,23 +61,23 @@ public class BasicModelShader extends Shader {
 		super.LoadVector(location_skyColor, color);
 	}
 
-	public void LoadLight(Light[] lights){
+	public void LoadLight(Vector3f[] positions, Light[] lights){
 		int length = lights.length > 20 ? 20 : lights.length;
-		Vector3f[] positions = new Vector3f[20];
+		Vector3f[] _positions = new Vector3f[20];
 		Vector3f[] colors = new Vector3f[20];
 		float[] ranges = new float[20];
-		
+
 		for(int i = 0; i < 20; i++)
 		{
 			if(i < length){
-			positions[i] = lights[i].position;
+			_positions[i] = positions[i];
 			colors[i] = lights[i].color;
 			ranges[i] = lights[i].range;
 			}
 		}
 
 		super.LoadFloatArray(location_lightRange, ranges);
-		super.LoadVectorArray(location_lightPosition, positions);
+		super.LoadVectorArray(location_lightPosition, _positions);
 		super.LoadVectorArray(location_lightColor, colors);
 		super.LoadFloat(location_lightCount, length);
 	}

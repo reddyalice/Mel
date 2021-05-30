@@ -1,10 +1,12 @@
-package com.alice.mel.utils;
+package com.alice.mel.utils.collections;
 
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
 
 import com.alice.mel.maths.MathUtils;
+import com.alice.mel.utils.Select;
+import com.alice.mel.utils.Sort;
 import com.alice.mel.utils.reflections.ArrayReflection;
 
 public class Array<T> implements Iterable<T> {

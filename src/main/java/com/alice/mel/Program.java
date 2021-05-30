@@ -3,7 +3,7 @@ package com.alice.mel;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 
-public class Core 
+public class Program 
 {
     public static void main( String[] args )
     {
