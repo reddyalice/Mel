@@ -42,6 +42,7 @@ public class BasicModelShader extends Shader {
 		location_projectionMatrix = GetUniformLocation("projectionMatrix");
 		location_viewMatrix = GetUniformLocation("viewMatrix");
 		location_lightCount = GetUniformLocation("lightCount");
+		location_lightRange = GetUniformLocation("lightRange");
 		location_lightPosition = GetUniformLocation("lightPosition");
 		location_lightColor = GetUniformLocation("lightColor");
 		location_shineDumper = GetUniformLocation("shineDumper");
@@ -62,19 +63,22 @@ public class BasicModelShader extends Shader {
 
 	public void LoadLight(Light[] lights){
 		int length = lights.length > 20 ? 20 : lights.length;
-		Vector3f[] positions = new Vector3f[length];
-		Vector3f[] colors = new Vector3f[length];
-		float[] ranges = new float[length];
-		for(int i = 0; i < length; i++)
+		Vector3f[] positions = new Vector3f[20];
+		Vector3f[] colors = new Vector3f[20];
+		float[] ranges = new float[20];
+		
+		for(int i = 0; i < 20; i++)
 		{
+			if(i < length){
 			positions[i] = lights[i].position;
 			colors[i] = lights[i].color;
 			ranges[i] = lights[i].range;
+			}
 		}
 
-		//TODO range
-		super.LoadVectorArray(location_lightPosition, positions, 20);
-		super.LoadVectorArray(location_lightColor, colors, 20);
+		super.LoadFloatArray(location_lightRange, ranges);
+		super.LoadVectorArray(location_lightPosition, positions);
+		super.LoadVectorArray(location_lightColor, colors);
 		super.LoadFloat(location_lightCount, length);
 	}
 	

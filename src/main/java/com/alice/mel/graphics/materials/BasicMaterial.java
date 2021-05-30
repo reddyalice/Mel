@@ -1,8 +1,14 @@
 package com.alice.mel.graphics.materials;
 
+
 import com.alice.mel.entities.Light;
 import com.alice.mel.graphics.Material;
 import com.alice.mel.graphics.Texture;
+import com.alice.mel.maths.MatrixCalculations;
+
+import org.joml.Vector3f;
+import org.joml.Matrix4f;
+
 
 public class BasicMaterial extends Material {
 
@@ -28,10 +34,14 @@ public class BasicMaterial extends Material {
     }
 
 
-    public void Load(Light[] lights){
+    public void Load(Vector3f position, Vector3f rotation, float scale, Light[] lights){
         BasicModelShader shader = (BasicModelShader)this.shader;
         shader.LoadShineValues(shineDumper, reflectivity, useFakeLighting);
         shader.LoadLight(lights);
+
+        Matrix4f transformationMatrix = MatrixCalculations.CreateTransformationMatrix(position, rotation.x, rotation.y, rotation.z, scale);
+
+        shader.LoadTransformationMatrix(transformationMatrix);
     }
 
 

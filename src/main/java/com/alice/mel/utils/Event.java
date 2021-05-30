@@ -1,9 +1,9 @@
-package com.alice.mel.util;
+package com.alice.mel.utils;
 
 import java.util.HashMap;
 import java.util.function.Consumer;
 
-public class EvE<T>{
+public class Event<T>{
 	
 	public HashMap<String,Consumer<T>> consumers = new HashMap<String,Consumer<T>>();
 

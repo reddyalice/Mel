@@ -41,12 +41,14 @@ void main(void){
 	
 	
 	pass_texCoords = texCoords;
-	_lightCount = lightCount;
-	surfaceNormal = (transformationMatrix * vec4(normal, 0.0)).xyz;
-	for(int i = 0; i < lightCount; i++)
-	toLightVector[i]  = lightPosition[i] - worldPosition.xyz;
-	toCameraVector  = (inverse(viewMatrix) * vec4(0.0, 0.0, 0.0, 1.0)).xyz - worldPosition.xyz;
 	
+	surfaceNormal = (transformationMatrix * vec4(normal, 0.0)).xyz;
+	
+	
+	toLightVector[i]  = lightPosition[i] - worldPosition.xyz;
+	
+	toCameraVector  = (inverse(viewMatrix) * vec4(0.0, 0.0, 0.0, 1.0)).xyz - worldPosition.xyz;
+	_lightCount = lightCount;
 	float distance = length(positionRelativeToCamera.xyz);
 	visibility = exp(-pow((distance*density), gradient));
 	visibility = clamp(visibility,0.0,1.0);
@@ -70,6 +72,8 @@ out vec4 out_Color;
 uniform sampler2D textureSampler;
 
 uniform vec3[20] lightColor;
+uniform float[20] lightRange;
+
 uniform vec3 skyColor;
 
 uniform float shineDumper;
@@ -86,6 +90,8 @@ void main(void){
 	vec4 diffuseResult;
 	vec4 specularResult;
 	for(int i = 0; i < _lightCount; i++){
+		float len = lightRange[i] - length(toLightVector[i]);
+
 		vec3 uLightVector = normalize(toLightVector[i]);
 		vec3 reflectedLightDirection = reflect(-uLightVector, uNormal);
 		float specularFactor = dot(reflectedLightDirection, uCameraVector);
@@ -98,17 +104,19 @@ void main(void){
 		else
 			specularResult = vec4(finalSpecular[i], 1.0);
 
-
-
-
 		float nDot1 = dot(uNormal, uLightVector);
 		float brightness = max(nDot1, 0.2);
-		diffuse[i] = brightness * lightColor;
-		if(i > 0)
-			diffuseResult = diffuseResult * vec4(diffuse[i], 1.0);
+		
+		if(len > 0)
+			diffuse[i] = (len / lightRange[i]) * brightness * lightColor;
 		else
-			diffuseResult = vec4(diffuse[i], 1.0);
+			diffuse[i] = 0.0 * brightness * lightColor;
+		
 
+		if(i > 0)
+				diffuseResult = diffuseResult * vec4( diffuse[i], 1.0);
+			else
+				diffuseResult = vec4(diffuse[i], 1.0);
 
 
 

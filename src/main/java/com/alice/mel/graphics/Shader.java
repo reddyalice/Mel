@@ -191,37 +191,27 @@ public abstract class Shader{
 	}
 
 
-    protected void LoadFloatArray(int location, float[] value, int fixedCount){
+    protected void LoadFloatArray(int location, float[] value){
 
-        float[] tmp = new float[fixedCount];
-        for(int i = 0; i < fixedCount; i++){
-            if(i < value.length)
-                tmp[i] = value[i];
-            else
-                tmp[i] = 0;
-        }
-		GL32C.glUniform1fv(location, tmp);
+		GL32C.glUniform1fv(location, value);
 	}
 	
 	
-	protected void LoadBooleanArray(int location, boolean[] value, int fixedCount){
+	protected void LoadBooleanArray(int location, boolean[] value){
 		
-        float[] tmp = new float[fixedCount];
-        for(int i = 0; i < fixedCount; i++){
-            if(i < value.length)
+        float[] tmp = new float[value.length];
+        for(int i = 0; i < value.length; i++){
                 tmp[i] = value[i] ? 1 : 0;
-            else
-                tmp[i] = 0;
         }
 
 		GL32C.glUniform1fv(location, tmp);
 	}
 
 
-    protected void LoadVectorArray(int location, Vector3f[] value, int fixedCount){
+    protected void LoadVectorArray(int location, Vector3f[] value){
 
-        float[] tmp = new float[fixedCount * 3];
-        for(int i = 0; i < fixedCount; i++){
+        float[] tmp = new float[value.length * 3];
+        for(int i = 0; i < value.length; i++){
             if(i < value.length){
                 tmp[3 * i] = value[i].x;
                 tmp[3 * i + 1] = value[i].y;
@@ -234,8 +224,6 @@ public abstract class Shader{
                 tmp[3 * i + 2] = 0;
             }
         }
-
-
 
 		GL32C.glUniform3fv(location, tmp);
 	}
