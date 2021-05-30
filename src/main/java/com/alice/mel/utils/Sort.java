@@ -2,6 +2,8 @@ package com.alice.mel.utils;
 
 import java.util.Comparator;
 
+import com.alice.mel.utils.collections.Array;
+
 public class Sort {
 	static private Sort instance;
 

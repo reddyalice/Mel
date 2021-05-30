@@ -1,4 +1,4 @@
-package com.alice.mel.utils;
+package com.alice.mel.utils.collections;
 
 import java.util.Comparator;
 

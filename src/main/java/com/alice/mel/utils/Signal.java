@@ -1,5 +1,7 @@
 package com.alice.mel.utils;
 
+import com.alice.mel.utils.collections.SnapshotArray;
+
 public class Signal<T> {
 	private SnapshotArray<Listener<T>> listeners;
 
